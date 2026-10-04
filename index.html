@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Medicine Enterprise Accounting</title>
+
+    <style>
+      /* =========================================================
+           RESET
+        ========================================================= */
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #147d72;
+        --primary-dark: #0f625a;
+        --primary-light: #e7f5f2;
+
+        --text: #172321;
+        --text-soft: #64706e;
+
+        --border: #e4e9e7;
+        --background: #f5f7f6;
+        --white: #ffffff;
+
+        --success: #159570;
+        --danger: #d9534f;
+
+        --shadow: 0 25px 70px rgba(25, 48, 44, 0.12);
+      }
+
+      body {
+        font-family:
+          Inter,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+
+        min-height: 100vh;
+        background: var(--background);
+        color: var(--text);
+      }
+
+      /* =========================================================
+           PAGE
+        ========================================================= */
+
+      .login-page {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+      }
+
+      /* =========================================================
+           LEFT VISUAL
+        ========================================================= */
+
+      .login-visual {
+        position: relative;
+        overflow: hidden;
+
+        background:
+          radial-gradient(
+            circle at 75% 15%,
+            rgba(43, 150, 137, 0.28),
+            transparent 35%
+          ),
+          linear-gradient(145deg, #102d29 0%, #164d46 45%, #0f3934 100%);
+
+        color: white;
+        padding: 55px 65px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      /* Decorative circles */
+
+      .login-visual::before {
+        content: "";
+        position: absolute;
+
+        width: 450px;
+        height: 450px;
+
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 50%;
+
+        right: -180px;
+        top: -130px;
+      }
+
+      .login-visual::after {
+        content: "";
+        position: absolute;
+
+        width: 650px;
+        height: 650px;
+
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+
+        left: -350px;
+        bottom: -400px;
+      }
+
+      .visual-content {
+        position: relative;
+        z-index: 2;
+      }
+
+      /* =========================================================
+           BRAND
+        ========================================================= */
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .brand-icon {
+        width: 46px;
+        height: 46px;
+
+        border-radius: 13px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 22px;
+        font-weight: 800;
+
+        color: #123d38;
+        background: white;
+
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+      }
+
+      .brand-name {
+        font-size: 19px;
+        font-weight: 800;
+        letter-spacing: 1.8px;
+      }
+
+      .brand-subtitle {
+        margin-top: 3px;
+
+        font-size: 11px;
+        font-weight: 500;
+
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+
+        opacity: 0.65;
+      }
+
+      /* =========================================================
+           HERO
+        ========================================================= */
+
+      .hero-copy {
+        max-width: 620px;
+        margin-top: 130px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+
+        margin-bottom: 22px;
+
+        font-size: 11px;
+        font-weight: 700;
+
+        letter-spacing: 2px;
+
+        color: #91d7cd;
+      }
+
+      .hero-copy h1 {
+        font-size: clamp(38px, 4vw, 62px);
+        line-height: 1.08;
+
+        letter-spacing: -2px;
+        font-weight: 700;
+      }
+
+      .hero-copy h1 span {
+        color: #8fd8ce;
+      }
+
+      .hero-copy p {
+        max-width: 570px;
+
+        margin-top: 25px;
+
+        font-size: 15px;
+        line-height: 1.8;
+
+        color: rgba(255, 255, 255, 0.67);
+      }
+
+      /* =========================================================
+           FINANCIAL PREVIEW
+        ========================================================= */
+
+      .financial-preview {
+        margin-top: 55px;
+
+        max-width: 650px;
+
+        padding: 22px;
+
+        border-radius: 18px;
+
+        background: rgba(255, 255, 255, 0.075);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        backdrop-filter: blur(12px);
+
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+      }
+
+      .preview-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        font-size: 12px;
+        font-weight: 600;
+
+        color: rgba(255, 255, 255, 0.8);
+
+        margin-bottom: 20px;
+      }
+
+      .live-status {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+
+        color: #8ee0c8;
+      }
+
+      .live-status i {
+        width: 7px;
+        height: 7px;
+
+        border-radius: 50%;
+        background: #70d4b8;
+
+        box-shadow: 0 0 0 5px rgba(112, 212, 184, 0.12);
+      }
+
+      .preview-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+
+      .preview-item {
+        padding: 16px;
+
+        border-radius: 12px;
+
+        background: rgba(0, 0, 0, 0.1);
+      }
+
+      .preview-item small {
+        display: block;
+
+        margin-bottom: 8px;
+
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .preview-item strong {
+        display: block;
+
+        font-size: 17px;
+        font-weight: 700;
+
+        color: white;
+      }
+
+      .preview-item span {
+        display: block;
+
+        margin-top: 6px;
+
+        font-size: 10px;
+
+        color: rgba(255, 255, 255, 0.45);
+      }
+
+      .preview-item .positive {
+        color: #8ee0c8;
+      }
+
+      /* =========================================================
+           FOOTER
+        ========================================================= */
+
+      .visual-footer {
+        position: relative;
+        z-index: 2;
+
+        display: flex;
+        justify-content: space-between;
+
+        font-size: 10px;
+
+        letter-spacing: 0.8px;
+
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      /* =========================================================
+           RIGHT LOGIN
+        ========================================================= */
+
+      .login-panel {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 50px;
+        background: #fafcfb;
+      }
+
+      .login-box {
+        width: 100%;
+        max-width: 420px;
+      }
+
+      /* =========================================================
+           LOGIN HEADER
+        ========================================================= */
+
+      .login-header {
+        margin-bottom: 38px;
+      }
+
+      .login-header .mini-brand {
+        display: none;
+      }
+
+      .login-header h2 {
+        font-size: 30px;
+        letter-spacing: -0.7px;
+
+        margin-bottom: 9px;
+      }
+
+      .login-header p {
+        font-size: 13px;
+        line-height: 1.6;
+
+        color: var(--text-soft);
+      }
+
+      /* =========================================================
+           FORM
+        ========================================================= */
+
+      .form-group {
+        margin-bottom: 21px;
+      }
+
+      .form-label {
+        display: block;
+
+        margin-bottom: 8px;
+
+        font-size: 12px;
+        font-weight: 600;
+
+        color: #33403d;
+      }
+
+      .input-wrapper {
+        position: relative;
+      }
+
+      .form-input {
+        width: 100%;
+
+        height: 52px;
+
+        padding: 0 15px;
+
+        border: 1px solid var(--border);
+        border-radius: 10px;
+
+        outline: none;
+
+        background: white;
+
+        color: var(--text);
+
+        font-family: inherit;
+        font-size: 13px;
+
+        transition: 0.2s ease;
+      }
+
+      .form-input:focus {
+        border-color: var(--primary);
+
+        box-shadow: 0 0 0 4px rgba(20, 125, 114, 0.08);
+      }
+
+      .password-input {
+        padding-right: 50px;
+      }
+
+      .password-toggle {
+        position: absolute;
+
+        right: 14px;
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        border: none;
+        background: transparent;
+
+        cursor: pointer;
+
+        font-size: 13px;
+
+        color: #7a8582;
+      }
+
+      .password-toggle:hover {
+        color: var(--primary);
+      }
+
+      /* =========================================================
+           OPTIONS
+        ========================================================= */
+
+      .login-options {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        margin: 5px 0 25px;
+      }
+
+      .remember {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        font-size: 11px;
+        color: var(--text-soft);
+
+        cursor: pointer;
+      }
+
+      .remember input {
+        accent-color: var(--primary);
+      }
+
+      .forgot-password {
+        border: none;
+        background: transparent;
+
+        color: var(--primary);
+
+        font-family: inherit;
+        font-size: 11px;
+        font-weight: 600;
+
+        cursor: pointer;
+      }
+
+      /* =========================================================
+           LOGIN BUTTON
+        ========================================================= */
+
+      .login-button {
+        width: 100%;
+        height: 52px;
+
+        border: none;
+        border-radius: 10px;
+
+        background: var(--primary);
+        color: white;
+
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease,
+          box-shadow 0.2s ease;
+
+        box-shadow: 0 10px 25px rgba(20, 125, 114, 0.18);
+      }
+
+      .login-button:hover {
+        background: var(--primary-dark);
+
+        transform: translateY(-1px);
+
+        box-shadow: 0 14px 30px rgba(20, 125, 114, 0.23);
+      }
+
+      .login-button:active {
+        transform: translateY(0);
+      }
+
+      .login-button.loading {
+        pointer-events: none;
+        opacity: 0.8;
+      }
+
+      /* =========================================================
+           DEMO ACCOUNT
+        ========================================================= */
+
+      .demo-account {
+        margin-top: 25px;
+
+        padding: 15px;
+
+        border-radius: 10px;
+
+        background: var(--primary-light);
+
+        border: 1px solid rgba(20, 125, 114, 0.08);
+      }
+
+      .demo-account-title {
+        margin-bottom: 8px;
+
+        font-size: 10px;
+        font-weight: 700;
+
+        text-transform: uppercase;
+        letter-spacing: 1px;
+
+        color: var(--primary);
+      }
+
+      .demo-account p {
+        font-size: 11px;
+        color: #65726f;
+        line-height: 1.6;
+      }
+
+      /* =========================================================
+           SECURITY
+        ========================================================= */
+
+      .security-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 7px;
+
+        margin-top: 30px;
+
+        font-size: 10px;
+        color: #98a19f;
+      }
+
+      .security-icon {
+        width: 15px;
+        height: 15px;
+
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #e8efed;
+
+        font-size: 8px;
+      }
+
+      /* =========================================================
+           ALERT
+        ========================================================= */
+
+      .login-alert {
+        display: none;
+
+        margin-bottom: 18px;
+
+        padding: 12px 14px;
+
+        border-radius: 8px;
+
+        font-size: 11px;
+        line-height: 1.5;
+      }
+
+      .login-alert.error {
+        display: block;
+
+        color: #a83e3a;
+        background: #fff0ef;
+
+        border: 1px solid #f5d2d0;
+      }
+
+      /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+      @media (max-width: 1000px) {
+        .login-page {
+          grid-template-columns: 1fr;
+        }
+
+        .login-visual {
+          display: none;
+        }
+
+        .login-panel {
+          min-height: 100vh;
+          padding: 35px 25px;
+        }
+
+        .login-header .mini-brand {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          margin-bottom: 45px;
+        }
+
+        .mini-brand-icon {
+          width: 38px;
+          height: 38px;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          border-radius: 10px;
+
+          background: var(--primary);
+          color: white;
+
+          font-size: 17px;
+          font-weight: 800;
+        }
+
+        .mini-brand-name {
+          font-size: 15px;
+          font-weight: 800;
+          letter-spacing: 1.2px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .login-panel {
+          padding: 25px 20px;
+        }
+
+        .login-header {
+          margin-bottom: 30px;
+        }
+
+        .login-header h2 {
+          font-size: 26px;
+        }
+
+        .login-options {
+          align-items: flex-start;
+          gap: 15px;
+        }
+
+        .forgot-password {
+          white-space: nowrap;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="login-page">
+      <!-- =====================================================
+             LEFT SIDE
+        ====================================================== -->
+
+      <section class="login-visual">
+        <div class="visual-content">
+          <!-- BRAND -->
+
+          <div class="brand">
+            <div class="brand-icon">M</div>
+
+            <div>
+              <div class="brand-name">MEDICINE</div>
+
+              <div class="brand-subtitle">Enterprise Platform</div>
+            </div>
+          </div>
+
+          <!-- HERO -->
+
+          <div class="hero-copy">
+            <span class="eyebrow"> ENTERPRISE ACCOUNTING </span>
+
+            <h1>
+              From Hospital
+              <span>Transactions</span>
+              to Financial Intelligence.
+            </h1>
+
+            <p>
+              Integrated financial management for modern hospitals, connecting
+              revenue, billing, claims, procurement, accounting and executive
+              intelligence.
+            </p>
+          </div>
+
+          <!-- FINANCIAL PREVIEW -->
+
+          <div class="financial-preview">
+            <div class="preview-header">
+              <span> Financial Overview </span>
+
+              <span class="live-status">
+                <i></i>
+                Live
+              </span>
+            </div>
+
+            <div class="preview-grid">
+              <div class="preview-item">
+                <small> Total Revenue </small>
+
+                <strong> Rp 12,48 M </strong>
+
+                <span class="positive"> +12.4% </span>
+              </div>
+
+              <div class="preview-item">
+                <small> Net Profit </small>
+
+                <strong> Rp 2,17 M </strong>
+
+                <span class="positive"> +8.7% </span>
+              </div>
+
+              <div class="preview-item">
+                <small> Receivable </small>
+
+                <strong> Rp 3,64 M </strong>
+
+                <span> AR Aging </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="visual-footer">
+          <span> Medicine Enterprise Accounting </span>
+
+          <span> Financial Intelligence Platform </span>
+        </div>
+      </section>
+
+      <!-- =====================================================
+             RIGHT SIDE
+        ====================================================== -->
+
+      <section class="login-panel">
+        <div class="login-box">
+          <div class="login-header">
+            <!-- MOBILE BRAND -->
+
+            <div class="mini-brand">
+              <div class="mini-brand-icon">M</div>
+
+              <div class="mini-brand-name">MEDICINE</div>
+            </div>
+
+            <h2>Welcome back</h2>
+
+            <p>Sign in to access your Enterprise Accounting workspace.</p>
+          </div>
+
+          <!-- ALERT -->
+
+          <div id="loginAlert" class="login-alert"></div>
+
+          <!-- FORM -->
+
+          <form id="loginForm">
+            <!-- USERNAME -->
+
+            <div class="form-group">
+              <label class="form-label" for="username">
+                Username / Email
+              </label>
+
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  id="username"
+                  class="form-input"
+                  placeholder="Enter your username or email"
+                  autocomplete="username"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+              <label class="form-label" for="password"> Password </label>
+
+              <div class="input-wrapper">
+                <input
+                  type="password"
+                  id="password"
+                  class="form-input password-input"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                  required
+                />
+
+                <button
+                  type="button"
+                  id="togglePassword"
+                  class="password-toggle"
+                  aria-label="Show password"
+                >
+                  Show
+                </button>
+              </div>
+            </div>
+
+            <!-- OPTIONS -->
+
+            <div class="login-options">
+              <label class="remember">
+                <input type="checkbox" id="rememberMe" />
+
+                <span> Remember me </span>
+              </label>
+
+              <button type="button" class="forgot-password" id="forgotPassword">
+                Forgot password?
+              </button>
+            </div>
+
+            <!-- LOGIN -->
+
+            <button type="submit" id="loginButton" class="login-button">
+              <span id="loginButtonText"> Sign In </span>
+            </button>
+          </form>
+
+          <!-- DEMO -->
+
+          <div class="demo-account">
+            <div class="demo-account-title">Demo Environment</div>
+
+            <p>
+              Username:
+              <strong>admin</strong>
+              &nbsp; / &nbsp; Password:
+              <strong>admin123</strong>
+            </p>
+          </div>
+
+          <!-- SECURITY -->
+
+          <div class="security-info">
+            <span class="security-icon"> ✓ </span>
+
+            <span> Secure enterprise environment </span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      /* =========================================================
+           MEDICINE ENTERPRISE ACCOUNTING
+           LOGIN SCRIPT
+        ========================================================= */
+
+      const loginForm = document.getElementById("loginForm");
+      const usernameInput = document.getElementById("username");
+      const passwordInput = document.getElementById("password");
+
+      const togglePassword = document.getElementById("togglePassword");
+
+      const loginButton = document.getElementById("loginButton");
+
+      const loginButtonText = document.getElementById("loginButtonText");
+
+      const loginAlert = document.getElementById("loginAlert");
+
+      const rememberMe = document.getElementById("rememberMe");
+
+      const forgotPassword = document.getElementById("forgotPassword");
+
+      /* =========================================================
+           LOAD REMEMBERED USER
+        ========================================================= */
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const savedUsername = localStorage.getItem("medicine_username");
+
+        if (savedUsername) {
+          usernameInput.value = savedUsername;
+
+          rememberMe.checked = true;
+        }
+      });
+
+      /* =========================================================
+           SHOW / HIDE PASSWORD
+        ========================================================= */
+
+      togglePassword.addEventListener("click", () => {
+        const isPassword = passwordInput.type === "password";
+
+        passwordInput.type = isPassword ? "text" : "password";
+
+        togglePassword.textContent = isPassword ? "Hide" : "Show";
+
+        togglePassword.setAttribute(
+          "aria-label",
+          isPassword ? "Hide password" : "Show password",
+        );
+      });
+
+      /* =========================================================
+           ALERT
+        ========================================================= */
+
+      function showAlert(message) {
+        loginAlert.textContent = message;
+
+        loginAlert.classList.add("error");
+      }
+
+      function hideAlert() {
+        loginAlert.textContent = "";
+
+        loginAlert.classList.remove("error");
+      }
+
+      /* =========================================================
+           FORGOT PASSWORD
+        ========================================================= */
+
+      forgotPassword.addEventListener("click", () => {
+        showAlert(
+          "Password recovery will be available in the next demo version.",
+        );
+      });
+
+      /* =========================================================
+           LOGIN
+        ========================================================= */
+
+      loginForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        hideAlert();
+
+        const username = usernameInput.value.trim();
+
+        const password = passwordInput.value;
+
+        /* Basic validation */
+
+        if (!username || !password) {
+          showAlert("Please enter your username and password.");
+
+          return;
+        }
+
+        /* Loading */
+
+        loginButton.classList.add("loading");
+
+        loginButtonText.textContent = "Signing in...";
+
+        /*
+         * DEMO AUTHENTICATION
+         *
+         * Username : admin
+         * Password : admin123
+         */
+
+        setTimeout(() => {
+          if (username === "admin" && password === "admin123") {
+            /* Remember username */
+
+            if (rememberMe.checked) {
+              localStorage.setItem("medicine_username", username);
+            } else {
+              localStorage.removeItem("medicine_username");
+            }
+
+            /*
+             * Demo session
+             */
+
+            sessionStorage.setItem("medicine_logged_in", "true");
+
+            sessionStorage.setItem("medicine_user", username);
+
+            loginButtonText.textContent = "Success ✓";
+
+            /*
+             * Redirect
+             *
+             * Untuk sementara arahkan
+             * ke dashboard.html
+             */
+
+            setTimeout(() => {
+              window.location.href = "dashboard.html";
+            }, 500);
+          } else {
+            loginButton.classList.remove("loading");
+
+            loginButtonText.textContent = "Sign In";
+
+            showAlert(
+              "Invalid username or password. Please check your credentials.",
+            );
+          }
+        }, 900);
+      });
+
+      /* =========================================================
+           ENTER KEY
+        ========================================================= */
+
+      passwordInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          loginForm.requestSubmit();
+        }
+      });
+    </script>
+  </body>
+</html>

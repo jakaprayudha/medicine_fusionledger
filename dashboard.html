@@ -1,0 +1,1371 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Dashboard | Medicine Enterprise Accounting</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- =========================================================
+         SIDEBAR
+    ========================================================== -->
+
+      <aside class="sidebar" id="sidebar">
+        <!-- BRAND -->
+        <div class="sidebar-brand">
+          <div class="brand-logo">M</div>
+          <div>
+            <div class="brand-title">MEDICINE</div>
+            <div class="brand-subtitle">Enterprise Accounting</div>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <!-- ========================= -->
+          <!-- MAIN -->
+          <!-- ========================= -->
+          <div class="nav-section">
+            <div class="nav-section-title">Main</div>
+
+            <a
+              href="dashboard.html"
+              class="nav-item active"
+              data-page="dashboard"
+            >
+              <span class="nav-icon">▦</span>
+              <span class="nav-text">Dashboard</span>
+            </a>
+          </div>
+
+          <!-- ========================= -->
+          <!-- FINANCIAL MANAGEMENT -->
+          <!-- ========================= -->
+          <div class="nav-section">
+            <div class="nav-section-title">Financial Management</div>
+
+            <!-- FINANCIAL MASTER DATA -->
+            <div class="nav-dropdown">
+              <button
+                class="nav-item nav-dropdown-toggle"
+                type="button"
+                data-dropdown="financialMasterData"
+              >
+                <span class="nav-icon">◎</span>
+
+                <span class="nav-text"> Financial Master Data </span>
+
+                <span class="nav-arrow">›</span>
+              </button>
+
+              <div class="nav-submenu" id="financialMasterData">
+                <a
+                  href="financial-master-data/hospital-profile.html"
+                  class="nav-subitem"
+                >
+                  Hospital Profile
+                </a>
+
+                <a
+                  href="financial-master-data/financial-setting.html"
+                  class="nav-subitem"
+                >
+                  Financial Setting
+                </a>
+
+                <a
+                  href="financial-master-data/cost-center.html"
+                  class="nav-subitem"
+                >
+                  Cost Center
+                </a>
+
+                <a
+                  href="financial-master-data/profit-center.html"
+                  class="nav-subitem"
+                >
+                  Profit Center
+                </a>
+
+                <a
+                  href="financial-master-data/department.html"
+                  class="nav-subitem"
+                >
+                  Department
+                </a>
+
+                <a
+                  href="financial-master-data/service-unit.html"
+                  class="nav-subitem"
+                >
+                  Service Unit
+                </a>
+
+                <a
+                  href="financial-master-data/payment-method.html"
+                  class="nav-subitem"
+                >
+                  Payment Method
+                </a>
+
+                <a
+                  href="financial-master-data/bank-account.html"
+                  class="nav-subitem"
+                >
+                  Bank Account
+                </a>
+
+                <a
+                  href="financial-master-data/tax-master.html"
+                  class="nav-subitem"
+                >
+                  Tax Master
+                </a>
+
+                <a
+                  href="financial-master-data/accounting-mapping.html"
+                  class="nav-subitem"
+                >
+                  Accounting Mapping
+                </a>
+              </div>
+            </div>
+
+            <!-- CHART OF ACCOUNTS -->
+            <a
+              href="chart-of-accounts/chart-of-accounts.html"
+              class="nav-item"
+              data-page="chart-of-accounts"
+            >
+              <span class="nav-icon">▤</span>
+              <span class="nav-text">Chart of Accounts</span>
+            </a>
+
+            <!-- GENERAL LEDGER -->
+            <div class="nav-dropdown">
+              <button
+                class="nav-item nav-dropdown-toggle"
+                type="button"
+                data-dropdown="generalLedger"
+              >
+                <span class="nav-icon">↔</span>
+
+                <span class="nav-text"> General Ledger </span>
+
+                <span class="nav-arrow">›</span>
+              </button>
+
+              <div class="nav-submenu" id="generalLedger">
+                <a href="general-ledger/journal-entry.html" class="nav-subitem">
+                  Journal Entry
+                </a>
+
+                <a href="general-ledger/journal-list.html" class="nav-subitem">
+                  Journal List
+                </a>
+
+                <a
+                  href="general-ledger/journal-posting.html"
+                  class="nav-subitem"
+                >
+                  Journal Posting
+                </a>
+
+                <a href="general-ledger/ledger.html" class="nav-subitem">
+                  General Ledger
+                </a>
+              </div>
+            </div>
+
+            <!-- ACCOUNT RECEIVABLE -->
+            <div class="nav-dropdown">
+              <button
+                class="nav-item nav-dropdown-toggle"
+                type="button"
+                data-dropdown="accountReceivable"
+              >
+                <span class="nav-icon">◌</span>
+
+                <span class="nav-text"> Account Receivable </span>
+
+                <span class="nav-arrow">›</span>
+              </button>
+
+              <div class="nav-submenu" id="accountReceivable">
+                <a
+                  href="account-receivable/ar-dashboard.html"
+                  class="nav-subitem"
+                >
+                  AR Dashboard
+                </a>
+
+                <a href="account-receivable/customer.html" class="nav-subitem">
+                  Customer
+                </a>
+
+                <a href="account-receivable/invoice.html" class="nav-subitem">
+                  Invoice
+                </a>
+
+                <a href="account-receivable/receipt.html" class="nav-subitem">
+                  Receipt
+                </a>
+
+                <a href="account-receivable/aging.html" class="nav-subitem">
+                  AR Aging
+                </a>
+              </div>
+            </div>
+
+            <!-- ACCOUNT PAYABLE -->
+            <div class="nav-dropdown">
+              <button
+                class="nav-item nav-dropdown-toggle"
+                type="button"
+                data-dropdown="accountPayable"
+              >
+                <span class="nav-icon">◍</span>
+
+                <span class="nav-text"> Account Payable </span>
+
+                <span class="nav-arrow">›</span>
+              </button>
+
+              <div class="nav-submenu" id="accountPayable">
+                <a href="account-payable/ap-dashboard.html" class="nav-subitem">
+                  AP Dashboard
+                </a>
+
+                <a href="account-payable/vendor.html" class="nav-subitem">
+                  Vendor
+                </a>
+
+                <a href="account-payable/bill.html" class="nav-subitem">
+                  Bill
+                </a>
+
+                <a href="account-payable/payment.html" class="nav-subitem">
+                  Payment
+                </a>
+
+                <a href="account-payable/aging.html" class="nav-subitem">
+                  AP Aging
+                </a>
+              </div>
+            </div>
+
+            <!-- CASH & BANK -->
+            <div class="nav-dropdown">
+              <button
+                class="nav-item nav-dropdown-toggle"
+                type="button"
+                data-dropdown="cashBank"
+              >
+                <span class="nav-icon">▣</span>
+
+                <span class="nav-text"> Cash &amp; Bank </span>
+
+                <span class="nav-arrow">›</span>
+              </button>
+
+              <div class="nav-submenu" id="cashBank">
+                <a
+                  href="cash-bank/cash-bank-dashboard.html"
+                  class="nav-subitem"
+                >
+                  Cash &amp; Bank Dashboard
+                </a>
+
+                <a href="cash-bank/cash-account.html" class="nav-subitem">
+                  Cash Account
+                </a>
+
+                <a href="cash-bank/bank-account.html" class="nav-subitem">
+                  Bank Account
+                </a>
+
+                <a href="cash-bank/cash-receipt.html" class="nav-subitem">
+                  Cash Receipt
+                </a>
+
+                <a href="cash-bank/cash-disbursement.html" class="nav-subitem">
+                  Cash Disbursement
+                </a>
+
+                <a
+                  href="cash-bank/bank-reconciliation.html"
+                  class="nav-subitem"
+                >
+                  Bank Reconciliation
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- ========================= -->
+          <!-- OPERATIONS -->
+          <!-- ========================= -->
+          <div class="nav-section">
+            <div class="nav-section-title">Operations</div>
+
+            <a
+              href="operations/revenue-management.html"
+              class="nav-item"
+              data-page="revenue-management"
+            >
+              <span class="nav-icon">↗</span>
+              <span class="nav-text">Revenue Management</span>
+            </a>
+
+            <a
+              href="operations/billing-integration.html"
+              class="nav-item"
+              data-page="billing-integration"
+            >
+              <span class="nav-icon">▧</span>
+              <span class="nav-text">Billing Integration</span>
+            </a>
+
+            <a
+              href="operations/bpjs-insurance.html"
+              class="nav-item"
+              data-page="bpjs-insurance"
+            >
+              <span class="nav-icon">✓</span>
+              <span class="nav-text">BPJS &amp; Insurance</span>
+            </a>
+
+            <a
+              href="operations/pharmacy-accounting.html"
+              class="nav-item"
+              data-page="pharmacy-accounting"
+            >
+              <span class="nav-icon">✚</span>
+              <span class="nav-text">Pharmacy Accounting</span>
+            </a>
+
+            <a
+              href="operations/procurement.html"
+              class="nav-item"
+              data-page="procurement"
+            >
+              <span class="nav-icon">⌁</span>
+              <span class="nav-text">Procurement</span>
+            </a>
+
+            <a
+              href="operations/expense-management.html"
+              class="nav-item"
+              data-page="expense-management"
+            >
+              <span class="nav-icon">−</span>
+              <span class="nav-text">Expense Management</span>
+            </a>
+          </div>
+
+          <!-- ========================= -->
+          <!-- MANAGEMENT -->
+          <!-- ========================= -->
+          <div class="nav-section">
+            <div class="nav-section-title">Management</div>
+
+            <a
+              href="management/fixed-asset.html"
+              class="nav-item"
+              data-page="fixed-asset"
+            >
+              <span class="nav-icon">▥</span>
+              <span class="nav-text">Fixed Asset</span>
+            </a>
+
+            <a
+              href="management/budget-management.html"
+              class="nav-item"
+              data-page="budget-management"
+            >
+              <span class="nav-icon">◫</span>
+              <span class="nav-text">Budget Management</span>
+            </a>
+
+            <a
+              href="management/payroll-accounting.html"
+              class="nav-item"
+              data-page="payroll-accounting"
+            >
+              <span class="nav-icon">▥</span>
+              <span class="nav-text">Payroll Accounting</span>
+            </a>
+
+            <a
+              href="management/tax-management.html"
+              class="nav-item"
+              data-page="tax-management"
+            >
+              <span class="nav-icon">%</span>
+              <span class="nav-text">Tax Management</span>
+            </a>
+
+            <a
+              href="management/financial-closing.html"
+              class="nav-item"
+              data-page="financial-closing"
+            >
+              <span class="nav-icon">◈</span>
+              <span class="nav-text">Financial Closing</span>
+            </a>
+          </div>
+
+          <!-- ========================= -->
+          <!-- REPORTS & INTELLIGENCE -->
+          <!-- ========================= -->
+          <div class="nav-section">
+            <div class="nav-section-title">Reports &amp; Intelligence</div>
+
+            <a
+              href="reports/financial-statements.html"
+              class="nav-item"
+              data-page="financial-statements"
+            >
+              <span class="nav-icon">▥</span>
+              <span class="nav-text">Financial Statements</span>
+            </a>
+
+            <a
+              href="reports/hospital-profitability.html"
+              class="nav-item"
+              data-page="hospital-profitability"
+            >
+              <span class="nav-icon">◒</span>
+              <span class="nav-text">Hospital Profitability</span>
+            </a>
+
+            <a
+              href="reports/ai-accounting-intelligence.html"
+              class="nav-item"
+              data-page="ai-accounting-intelligence"
+            >
+              <span class="nav-icon">⌁</span>
+              <span class="nav-text">AI Accounting Intelligence</span>
+            </a>
+
+            <a
+              href="reports/internal-control-audit.html"
+              class="nav-item"
+              data-page="internal-control-audit"
+            >
+              <span class="nav-icon">◉</span>
+              <span class="nav-text">Internal Control &amp; Audit</span>
+            </a>
+          </div>
+        </nav>
+
+        <!-- SIDEBAR FOOTER -->
+        <div class="sidebar-footer">
+          <div class="system-status">
+            <div class="status-label">SYSTEM STATUS</div>
+
+            <div class="status-value">
+              <span class="status-dot"></span>
+              All systems operational
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- =========================================================
+         MAIN
+    ========================================================== -->
+
+      <section class="main">
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+          <div style="display: flex; align-items: center">
+            <button class="mobile-menu" id="mobileMenu">☰</button>
+
+            <div class="page-title">
+              <h1>Financial Dashboard</h1>
+
+              <p>Enterprise Accounting & Financial Intelligence</p>
+            </div>
+          </div>
+
+          <div class="topbar-right">
+            <select class="period-selector" id="periodSelector">
+              <option>September 2026</option>
+              <option>August 2026</option>
+              <option>July 2026</option>
+              <option>Q3 2026</option>
+              <option>FY 2026</option>
+            </select>
+
+            <button class="notification">
+              ♧
+
+              <span class="notification-badge"></span>
+            </button>
+
+            <div class="user-profile">
+              <div class="user-avatar">AD</div>
+
+              <div class="user-info">
+                <strong> Admin Finance </strong>
+
+                <span> Finance Administrator </span>
+              </div>
+
+              <button class="user-menu" id="logoutButton">▾</button>
+            </div>
+          </div>
+        </header>
+
+        <!-- =====================================================
+             CONTENT
+        ====================================================== -->
+
+        <main class="content">
+          <!-- WELCOME -->
+
+          <div class="welcome-row">
+            <div class="welcome">
+              <h2>Good morning, Admin 👋</h2>
+
+              <p>
+                Here's what's happening with your hospital's financial
+                performance.
+              </p>
+            </div>
+
+            <div class="last-updated">
+              Last updated:
+              <strong id="lastUpdated"> Just now </strong>
+            </div>
+          </div>
+
+          <!-- =================================================
+                 KPI
+            ================================================== -->
+
+          <section class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label"> Total Revenue </span>
+
+                <span class="kpi-icon"> ↗ </span>
+              </div>
+
+              <div class="kpi-value">Rp 12,48 M</div>
+
+              <div class="kpi-footer">
+                <span class="kpi-change positive"> ↑ 12.4% </span>
+
+                <span class="kpi-period"> vs last month </span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label"> Net Profit </span>
+
+                <span class="kpi-icon"> ◒ </span>
+              </div>
+
+              <div class="kpi-value">Rp 2,17 M</div>
+
+              <div class="kpi-footer">
+                <span class="kpi-change positive"> ↑ 8.7% </span>
+
+                <span class="kpi-period"> vs last month </span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label"> Cash Balance </span>
+
+                <span class="kpi-icon"> ▣ </span>
+              </div>
+
+              <div class="kpi-value">Rp 4,82 M</div>
+
+              <div class="kpi-footer">
+                <span class="kpi-change positive"> ↑ 5.2% </span>
+
+                <span class="kpi-period"> vs last month </span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label"> Account Receivable </span>
+
+                <span class="kpi-icon"> ◌ </span>
+              </div>
+
+              <div class="kpi-value">Rp 3,64 M</div>
+
+              <div class="kpi-footer">
+                <span class="kpi-change warning"> 18.6% overdue </span>
+
+                <span class="kpi-period"> AR aging </span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label"> Account Payable </span>
+
+                <span class="kpi-icon"> ◍ </span>
+              </div>
+
+              <div class="kpi-value">Rp 2,18 M</div>
+
+              <div class="kpi-footer">
+                <span class="kpi-change"> 32 invoices </span>
+
+                <span class="kpi-period"> outstanding </span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label"> Outstanding Claim </span>
+
+                <span class="kpi-icon"> ✓ </span>
+              </div>
+
+              <div class="kpi-value">Rp 1,87 M</div>
+
+              <div class="kpi-footer">
+                <span class="kpi-change warning"> 14 pending </span>
+
+                <span class="kpi-period"> BPJS & Insurance </span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label"> Operating Expense </span>
+
+                <span class="kpi-icon"> − </span>
+              </div>
+
+              <div class="kpi-value">Rp 8,31 M</div>
+
+              <div class="kpi-footer">
+                <span class="kpi-change danger"> ↑ 18.7% </span>
+
+                <span class="kpi-period"> vs last month </span>
+              </div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-top">
+                <span class="kpi-label"> Budget Utilization </span>
+
+                <span class="kpi-icon"> ◫ </span>
+              </div>
+
+              <div class="kpi-value">78.4%</div>
+
+              <div class="kpi-footer">
+                <span class="kpi-change positive"> Rp 1,08 M </span>
+
+                <span class="kpi-period"> remaining </span>
+              </div>
+            </div>
+          </section>
+
+          <!-- =================================================
+                 REVENUE + CASH FLOW
+            ================================================== -->
+
+          <section class="dashboard-grid">
+            <!-- REVENUE TREND -->
+
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Revenue & Expense Trend</div>
+
+                  <div class="card-subtitle">Monthly financial performance</div>
+                </div>
+
+                <button class="card-action">View Report →</button>
+              </div>
+
+              <div class="card-body">
+                <div class="chart-container">
+                  <canvas id="revenueChart"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- CASH FLOW -->
+
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Cash Flow</div>
+
+                  <div class="card-subtitle">Current month</div>
+                </div>
+
+                <button class="card-action">Details →</button>
+              </div>
+
+              <div class="card-body">
+                <div class="cash-summary">
+                  <div class="cash-box in">
+                    <small> Cash Inflow </small>
+
+                    <strong> Rp 6,82 M </strong>
+                  </div>
+
+                  <div class="cash-box out">
+                    <small> Cash Outflow </small>
+
+                    <strong> Rp 4,91 M </strong>
+                  </div>
+                </div>
+
+                <div class="mini-chart">
+                  <canvas id="cashChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- =================================================
+                 REVENUE UNIT + AR + AP
+            ================================================== -->
+
+          <section class="dashboard-grid three">
+            <!-- REVENUE BY UNIT -->
+
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Revenue by Unit</div>
+
+                  <div class="card-subtitle">September 2026</div>
+                </div>
+
+                <button class="card-action">View All →</button>
+              </div>
+
+              <div class="card-body">
+                <div class="unit-list">
+                  <div class="unit-row">
+                    <span class="unit-name"> Rawat Inap </span>
+
+                    <div class="progress">
+                      <div class="progress-bar" style="width: 82%"></div>
+                    </div>
+
+                    <span class="unit-value"> Rp 3,42 M </span>
+                  </div>
+
+                  <div class="unit-row">
+                    <span class="unit-name"> Rawat Jalan </span>
+
+                    <div class="progress">
+                      <div class="progress-bar" style="width: 68%"></div>
+                    </div>
+
+                    <span class="unit-value"> Rp 2,81 M </span>
+                  </div>
+
+                  <div class="unit-row">
+                    <span class="unit-name"> Farmasi </span>
+
+                    <div class="progress">
+                      <div class="progress-bar" style="width: 57%"></div>
+                    </div>
+
+                    <span class="unit-value"> Rp 2,14 M </span>
+                  </div>
+
+                  <div class="unit-row">
+                    <span class="unit-name"> IGD </span>
+
+                    <div class="progress">
+                      <div class="progress-bar" style="width: 43%"></div>
+                    </div>
+
+                    <span class="unit-value"> Rp 1,21 M </span>
+                  </div>
+
+                  <div class="unit-row">
+                    <span class="unit-name"> Operasi </span>
+
+                    <div class="progress">
+                      <div class="progress-bar" style="width: 39%"></div>
+                    </div>
+
+                    <span class="unit-value"> Rp 1,08 M </span>
+                  </div>
+
+                  <div class="unit-row">
+                    <span class="unit-name"> Laboratorium </span>
+
+                    <div class="progress">
+                      <div class="progress-bar" style="width: 31%"></div>
+                    </div>
+
+                    <span class="unit-value"> Rp 860 Jt </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- AR AGING -->
+
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">AR Aging</div>
+
+                  <div class="card-subtitle">Receivable exposure</div>
+                </div>
+
+                <button class="card-action">Details →</button>
+              </div>
+
+              <div class="card-body">
+                <div class="aging-list">
+                  <div class="aging-row">
+                    <span class="aging-label"> 0–30 Days </span>
+
+                    <div class="aging-bar">
+                      <div
+                        class="aging-fill"
+                        style="width: 82%; background: #159570"
+                      ></div>
+                    </div>
+
+                    <span class="aging-value"> Rp 1,82 M </span>
+                  </div>
+
+                  <div class="aging-row">
+                    <span class="aging-label"> 31–60 Days </span>
+
+                    <div class="aging-bar">
+                      <div
+                        class="aging-fill"
+                        style="width: 56%; background: #d99825"
+                      ></div>
+                    </div>
+
+                    <span class="aging-value"> Rp 940 Jt </span>
+                  </div>
+
+                  <div class="aging-row">
+                    <span class="aging-label"> 61–90 Days </span>
+
+                    <div class="aging-bar">
+                      <div
+                        class="aging-fill"
+                        style="width: 38%; background: #d99825"
+                      ></div>
+                    </div>
+
+                    <span class="aging-value"> Rp 510 Jt </span>
+                  </div>
+
+                  <div class="aging-row">
+                    <span class="aging-label"> 91–180 Days </span>
+
+                    <div class="aging-bar">
+                      <div
+                        class="aging-fill"
+                        style="width: 22%; background: #d9534f"
+                      ></div>
+                    </div>
+
+                    <span class="aging-value"> Rp 280 Jt </span>
+                  </div>
+
+                  <div class="aging-row">
+                    <span class="aging-label"> >180 Days </span>
+
+                    <div class="aging-bar">
+                      <div
+                        class="aging-fill"
+                        style="width: 10%; background: #d9534f"
+                      ></div>
+                    </div>
+
+                    <span class="aging-value"> Rp 90 Jt </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- AP -->
+
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">AP Aging</div>
+
+                  <div class="card-subtitle">Vendor obligations</div>
+                </div>
+
+                <button class="card-action">Details →</button>
+              </div>
+
+              <div class="card-body">
+                <div class="aging-list">
+                  <div class="aging-row">
+                    <span class="aging-label"> Current </span>
+
+                    <div class="aging-bar">
+                      <div
+                        class="aging-fill"
+                        style="width: 75%; background: #159570"
+                      ></div>
+                    </div>
+
+                    <span class="aging-value"> Rp 1,04 M </span>
+                  </div>
+
+                  <div class="aging-row">
+                    <span class="aging-label"> 31–60 Days </span>
+
+                    <div class="aging-bar">
+                      <div
+                        class="aging-fill"
+                        style="width: 45%; background: #d99825"
+                      ></div>
+                    </div>
+
+                    <span class="aging-value"> Rp 620 Jt </span>
+                  </div>
+
+                  <div class="aging-row">
+                    <span class="aging-label"> 61–90 Days </span>
+
+                    <div class="aging-bar">
+                      <div
+                        class="aging-fill"
+                        style="width: 29%; background: #d99825"
+                      ></div>
+                    </div>
+
+                    <span class="aging-value"> Rp 310 Jt </span>
+                  </div>
+
+                  <div class="aging-row">
+                    <span class="aging-label"> >90 Days </span>
+
+                    <div class="aging-bar">
+                      <div
+                        class="aging-fill"
+                        style="width: 18%; background: #d9534f"
+                      ></div>
+                    </div>
+
+                    <span class="aging-value"> Rp 210 Jt </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- =================================================
+                 PROFITABILITY + BUDGET
+            ================================================== -->
+
+          <section class="dashboard-grid">
+            <!-- PROFITABILITY -->
+
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Hospital Profitability</div>
+
+                  <div class="card-subtitle">Contribution by business unit</div>
+                </div>
+
+                <button class="card-action">Full Analysis →</button>
+              </div>
+
+              <div class="card-body">
+                <table class="profit-table">
+                  <thead>
+                    <tr>
+                      <th>Unit</th>
+
+                      <th>Revenue</th>
+
+                      <th>Cost</th>
+
+                      <th>Margin</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr>
+                      <td class="profit-name">Rawat Inap</td>
+
+                      <td>Rp 3,42 M</td>
+
+                      <td>Rp 2,11 M</td>
+
+                      <td class="profit-margin">38.3%</td>
+                    </tr>
+
+                    <tr>
+                      <td class="profit-name">Rawat Jalan</td>
+
+                      <td>Rp 2,81 M</td>
+
+                      <td>Rp 1,66 M</td>
+
+                      <td class="profit-margin">40.9%</td>
+                    </tr>
+
+                    <tr>
+                      <td class="profit-name">Farmasi</td>
+
+                      <td>Rp 2,14 M</td>
+
+                      <td>Rp 1,69 M</td>
+
+                      <td class="profit-margin">21.0%</td>
+                    </tr>
+
+                    <tr>
+                      <td class="profit-name">Operasi</td>
+
+                      <td>Rp 1,08 M</td>
+
+                      <td>Rp 710 Jt</td>
+
+                      <td class="profit-margin">34.3%</td>
+                    </tr>
+
+                    <tr>
+                      <td class="profit-name">Laboratorium</td>
+
+                      <td>Rp 860 Jt</td>
+
+                      <td>Rp 430 Jt</td>
+
+                      <td class="profit-margin">50.0%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- BUDGET -->
+
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Budget vs Actual</div>
+
+                  <div class="card-subtitle">FY 2026</div>
+                </div>
+
+                <button class="card-action">View Budget →</button>
+              </div>
+
+              <div class="card-body">
+                <div class="budget-total">
+                  <div>
+                    <small> Total Budget </small>
+
+                    <strong> Rp 5,00 M </strong>
+                  </div>
+
+                  <div style="text-align: right">
+                    <small> Actual </small>
+
+                    <strong> Rp 3,92 M </strong>
+                  </div>
+                </div>
+
+                <div class="budget-progress">
+                  <div class="budget-progress-fill"></div>
+                </div>
+
+                <div class="budget-meta">
+                  <span>
+                    Utilization
+                    <strong> 78.4% </strong>
+                  </span>
+
+                  <span>
+                    Remaining:
+                    <strong> Rp 1,08 M </strong>
+                  </span>
+                </div>
+
+                <div
+                  style="
+                    margin-top: 25px;
+                    padding-top: 18px;
+                    border-top: 1px solid #edf0ef;
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      margin-bottom: 11px;
+                    "
+                  >
+                    <span style="font-size: 9px; color: #65716f">
+                      IT & Technology
+                    </span>
+
+                    <strong style="font-size: 9px"> 82% </strong>
+                  </div>
+
+                  <div class="budget-progress">
+                    <div
+                      style="
+                        width: 82%;
+                        height: 100%;
+                        background: #147d72;
+                        border-radius: 20px;
+                      "
+                    ></div>
+                  </div>
+
+                  <div
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      margin-top: 17px;
+                      margin-bottom: 11px;
+                    "
+                  >
+                    <span style="font-size: 9px; color: #65716f">
+                      Operations
+                    </span>
+
+                    <strong style="font-size: 9px"> 71% </strong>
+                  </div>
+
+                  <div class="budget-progress">
+                    <div
+                      style="
+                        width: 71%;
+                        height: 100%;
+                        background: #147d72;
+                        border-radius: 20px;
+                      "
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- =================================================
+                 AI INTELLIGENCE
+            ================================================== -->
+
+          <section class="dashboard-grid">
+            <div class="card ai-card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">AI Financial Intelligence</div>
+
+                  <div class="card-subtitle">Automated financial insight</div>
+                </div>
+
+                <span class="ai-badge"> AI POWERED </span>
+              </div>
+
+              <div class="card-body">
+                <div class="ai-insight">
+                  <div class="ai-insight-label">Executive Insight</div>
+
+                  <div class="ai-insight-text">
+                    <strong> Revenue increased 12.4% </strong>
+                    this month, but operating expense increased
+                    <strong> 18.7%. </strong>
+
+                    Gross margin decreased by
+                    <strong> 3.2%. </strong>
+
+                    The largest contributors are pharmaceutical COGS and
+                    maintenance expense.
+                  </div>
+                </div>
+
+                <div class="ai-query">
+                  <input
+                    type="text"
+                    id="aiInput"
+                    class="ai-input"
+                    placeholder="Ask AI about your financial data..."
+                  />
+
+                  <button class="ai-send" id="aiSend">↑</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- AI ALERTS -->
+
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <div class="card-title">Financial Alerts</div>
+
+                  <div class="card-subtitle">Requires attention</div>
+                </div>
+
+                <button class="card-action">View All →</button>
+              </div>
+
+              <div class="card-body">
+                <div
+                  style="
+                    display: flex;
+                    gap: 12px;
+                    padding-bottom: 14px;
+                    margin-bottom: 14px;
+                    border-bottom: 1px solid #edf0ef;
+                  "
+                >
+                  <div
+                    style="
+                      width: 28px;
+                      height: 28px;
+                      border-radius: 7px;
+                      background: #fff2df;
+                      color: #d99825;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                  >
+                    !
+                  </div>
+
+                  <div>
+                    <strong style="display: block; font-size: 9px">
+                      High AR Exposure
+                    </strong>
+
+                    <span
+                      style="
+                        display: block;
+                        margin-top: 4px;
+                        font-size: 8px;
+                        line-height: 1.5;
+                        color: #919b99;
+                      "
+                    >
+                      Rp 370 Jt receivables exceed 90 days.
+                    </span>
+                  </div>
+                </div>
+
+                <div style="display: flex; gap: 12px">
+                  <div
+                    style="
+                      width: 28px;
+                      height: 28px;
+                      border-radius: 7px;
+                      background: #fff0ef;
+                      color: #d9534f;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                  >
+                    !
+                  </div>
+
+                  <div>
+                    <strong style="display: block; font-size: 9px">
+                      Expense Anomaly
+                    </strong>
+
+                    <span
+                      style="
+                        display: block;
+                        margin-top: 4px;
+                        font-size: 8px;
+                        line-height: 1.5;
+                        color: #919b99;
+                      "
+                    >
+                      Maintenance expense increased 21.3%.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- =================================================
+                 QUICK ACTION
+            ================================================== -->
+
+          <section style="margin-top: 17px">
+            <div style="font-size: 11px; font-weight: 700; margin-bottom: 11px">
+              Quick Actions
+            </div>
+
+            <div class="quick-actions">
+              <button class="quick-action">
+                <div class="quick-icon">+</div>
+
+                <strong> New Journal </strong>
+
+                <span> Create journal entry </span>
+              </button>
+
+              <button class="quick-action">
+                <div class="quick-icon">↗</div>
+
+                <strong> Record Payment </strong>
+
+                <span> Register incoming payment </span>
+              </button>
+
+              <button class="quick-action">
+                <div class="quick-icon">▤</div>
+
+                <strong> Financial Report </strong>
+
+                <span> Generate financial report </span>
+              </button>
+
+              <button class="quick-action">
+                <div class="quick-icon">✓</div>
+
+                <strong> Reconciliation </strong>
+
+                <span> Bank reconciliation </span>
+              </button>
+            </div>
+          </section>
+        </main>
+      </section>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>

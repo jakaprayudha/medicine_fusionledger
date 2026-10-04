@@ -1,0 +1,1716 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Cost Center | Medicine Enterprise Accounting</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link href="../style.css" rel="stylesheet" />
+
+    <style>
+      /* =========================================================
+       SERVICE UNIT
+       Page-specific styles only
+    ========================================================= */
+      .service-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      .service-header-text h2 {
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+      }
+      .service-header-text p {
+        margin-top: 5px;
+        font-size: 10px;
+        line-height: 1.6;
+        color: var(--text-muted);
+      }
+      .service-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+      }
+      .service-btn {
+        height: 34px;
+        padding: 0 14px;
+        border-radius: 7px;
+        border: 1px solid var(--border);
+        background: white;
+        color: var(--text-secondary);
+        font-size: 10px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .service-btn:hover {
+        background: #fafcfb;
+        color: var(--text);
+      }
+      .service-btn.primary {
+        border-color: var(--primary);
+        background: var(--primary);
+        color: white;
+      }
+      .service-btn.primary:hover {
+        background: var(--primary-dark);
+      }
+      .service-summary {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+        margin-bottom: 17px;
+      }
+      .service-summary-card {
+        padding: 15px 16px;
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+      }
+      .service-summary-label {
+        font-size: 8px;
+        font-weight: 700;
+        color: var(--text-muted);
+        letter-spacing: 0.7px;
+        text-transform: uppercase;
+      }
+      .service-summary-value {
+        margin-top: 6px;
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .service-summary-meta {
+        margin-top: 4px;
+        font-size: 8px;
+        color: var(--text-muted);
+      }
+      .service-summary-meta.success {
+        color: var(--success);
+        font-weight: 600;
+      }
+      .service-card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 11px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        margin-bottom: 17px;
+      }
+      .service-card-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 16px 18px 14px;
+        border-bottom: 1px solid #edf0ef;
+      }
+      .service-card-kicker {
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 1.2px;
+        color: var(--primary);
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
+      .service-card-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .service-card-description {
+        margin-top: 4px;
+        font-size: 9px;
+        line-height: 1.5;
+        color: var(--text-muted);
+      }
+      .service-card-body {
+        padding: 17px 18px 19px;
+      }
+      .service-filter {
+        display: grid;
+        grid-template-columns: 1.35fr 1fr 1fr auto;
+        gap: 9px;
+        align-items: end;
+        margin-bottom: 15px;
+      }
+      .service-filter-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 8px;
+        font-weight: 600;
+        color: var(--text-secondary);
+      }
+      .service-input,
+      .service-select {
+        width: 100%;
+        height: 34px;
+        padding: 0 10px;
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        background: white;
+        color: var(--text);
+        font-family: inherit;
+        font-size: 9px;
+        outline: none;
+      }
+      .service-input:focus,
+      .service-select:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(20, 125, 114, 0.08);
+      }
+      .service-search-btn {
+        height: 34px;
+        padding: 0 13px;
+        border: 1px solid var(--primary);
+        border-radius: 7px;
+        background: var(--primary);
+        color: white;
+        font-family: inherit;
+        font-size: 9px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .service-table-wrapper {
+        overflow-x: auto;
+      }
+      .service-table {
+        width: 100%;
+        min-width: 980px;
+        border-collapse: collapse;
+      }
+      .service-table th {
+        padding: 10px 8px;
+        background: #f8faf9;
+        border-top: 1px solid #edf0ef;
+        border-bottom: 1px solid #edf0ef;
+        text-align: left;
+        font-size: 8px;
+        font-weight: 700;
+        color: var(--text-muted);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+      .service-table td {
+        padding: 11px 8px;
+        border-bottom: 1px solid #edf0ef;
+        font-size: 9px;
+        color: var(--text-secondary);
+        vertical-align: middle;
+      }
+      .service-table tbody tr:hover {
+        background: #fafcfb;
+      }
+      .service-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+      .service-code {
+        display: inline-flex;
+        padding: 5px 7px;
+        border-radius: 5px;
+        background: var(--primary-soft);
+        color: var(--primary);
+        font-size: 8px;
+        font-weight: 700;
+      }
+      .service-name {
+        font-weight: 600;
+        color: var(--text);
+      }
+      .service-type {
+        display: inline-flex;
+        padding: 4px 7px;
+        border-radius: 5px;
+        background: #f3f5f4;
+        color: var(--text-secondary);
+        font-size: 8px;
+        font-weight: 600;
+      }
+      .service-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 8px;
+        border-radius: 6px;
+        font-size: 8px;
+        font-weight: 600;
+      }
+      .service-status.active {
+        background: #f1faf7;
+        color: var(--success);
+      }
+      .service-status.inactive {
+        background: #f6f6f6;
+        color: var(--text-muted);
+      }
+      .service-status-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+      .service-revenue {
+        font-weight: 600;
+        color: var(--text);
+      }
+      .service-actions-cell {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .service-table-action {
+        width: 27px;
+        height: 27px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: white;
+        color: var(--text-secondary);
+        cursor: pointer;
+        font-size: 10px;
+      }
+      .service-table-action:hover {
+        color: var(--primary);
+        border-color: var(--primary);
+        background: var(--primary-soft);
+      }
+      .service-form-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 15px;
+      }
+      .service-form-group {
+        min-width: 0;
+      }
+      .service-form-group.full {
+        grid-column: 1/-1;
+      }
+      .service-form-group label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 9px;
+        font-weight: 600;
+        color: var(--text-secondary);
+      }
+      .service-form-group label span {
+        color: var(--danger);
+      }
+      .service-textarea {
+        width: 100%;
+        min-height: 72px;
+        padding: 9px 10px;
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        resize: vertical;
+        font-family: inherit;
+        font-size: 9px;
+        color: var(--text);
+        outline: none;
+      }
+      .service-textarea:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(20, 125, 114, 0.08);
+      }
+      .service-status-box {
+        height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10px;
+        border: 1px solid var(--border);
+        border-radius: 7px;
+        background: #fafcfb;
+      }
+      .service-status-label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--success);
+        font-size: 8px;
+        font-weight: 600;
+      }
+      .service-toggle {
+        position: relative;
+        width: 31px;
+        height: 17px;
+        border: none;
+        border-radius: 20px;
+        background: var(--primary);
+        cursor: pointer;
+      }
+      .service-toggle::after {
+        content: "";
+        position: absolute;
+        width: 11px;
+        height: 11px;
+        top: 3px;
+        right: 3px;
+        border-radius: 50%;
+        background: white;
+        transition: 0.2s ease;
+      }
+      .service-toggle.off {
+        background: #c8d0ce;
+      }
+      .service-toggle.off::after {
+        right: 17px;
+      }
+      .service-detail-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 17px;
+        margin-bottom: 17px;
+      }
+      .service-detail-card {
+        background: white;
+        border: 1px solid var(--border);
+        border-radius: 11px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .service-detail-header {
+        padding: 15px 18px;
+        border-bottom: 1px solid #edf0ef;
+      }
+      .service-detail-title {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .service-detail-subtitle {
+        margin-top: 4px;
+        font-size: 8px;
+        color: var(--text-muted);
+      }
+      .service-detail-body {
+        padding: 16px 18px;
+      }
+      .service-hierarchy-list {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+      }
+      .service-hierarchy-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 31px;
+        padding: 6px 8px;
+        border-radius: 6px;
+        background: #fafcfb;
+        font-size: 8px;
+        color: var(--text-secondary);
+      }
+      .service-hierarchy-row.level-1 {
+        margin-left: 0;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .service-hierarchy-row.level-2 {
+        margin-left: 18px;
+      }
+      .service-hierarchy-row.level-3 {
+        margin-left: 36px;
+      }
+      .service-hierarchy-line {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--primary);
+        flex-shrink: 0;
+      }
+      .service-hierarchy-code {
+        color: var(--primary);
+        font-weight: 700;
+      }
+      .service-info-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .service-info-table tr {
+        border-bottom: 1px solid #edf0ef;
+      }
+      .service-info-table tr:last-child {
+        border-bottom: none;
+      }
+      .service-info-table td {
+        padding: 9px 3px;
+        font-size: 8px;
+      }
+      .service-info-table td:first-child {
+        color: var(--text-muted);
+      }
+      .service-info-table td:last-child {
+        text-align: right;
+        color: var(--text);
+        font-weight: 600;
+      }
+      .service-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+        padding: 15px 0 5px;
+      }
+      .service-save-info {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 9px;
+        color: var(--text-muted);
+      }
+      @media (max-width: 1050px) {
+        .service-summary {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .service-filter {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .service-detail-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 850px) {
+        .service-form-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 700px) {
+        .service-header,
+        .service-footer {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .service-actions {
+          justify-content: flex-start;
+        }
+        .service-summary {
+          grid-template-columns: 1fr;
+        }
+        .service-filter {
+          grid-template-columns: 1fr;
+        }
+        .service-form-grid {
+          grid-template-columns: 1fr;
+        }
+        .service-form-group.full {
+          grid-column: auto;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- =========================================================
+         SIDEBAR
+    ========================================================== -->
+
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+          <div class="brand-logo">M</div>
+
+          <div>
+            <div class="brand-title">MEDICINE</div>
+
+            <div class="brand-subtitle">Enterprise Accounting</div>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <!-- MAIN -->
+
+          <div class="nav-section">
+            <div class="nav-section-title">Main</div>
+
+            <a href="../dashboard.html" class="nav-item">
+              <span class="nav-icon">▦</span>
+              <span class="nav-text">Dashboard</span>
+            </a>
+          </div>
+
+          <!-- FINANCIAL MANAGEMENT -->
+
+          <div class="nav-section">
+            <div class="nav-section-title">Financial Management</div>
+
+            <!-- FINANCIAL MASTER DATA -->
+
+            <div class="nav-dropdown">
+              <button
+                class="nav-item nav-dropdown-toggle open"
+                type="button"
+                data-dropdown="financialMasterData"
+              >
+                <span class="nav-icon"> ◎ </span>
+
+                <span class="nav-text"> Financial Master Data </span>
+
+                <span class="nav-arrow"> › </span>
+              </button>
+
+              <div class="nav-submenu open" id="financialMasterData">
+                <a href="hospital-profile.html" class="nav-subitem">
+                  Hospital Profile
+                </a>
+
+                <a href="financial-setting.html" class="nav-subitem">
+                  Financial Setting
+                </a>
+
+                <a href="cost-center.html" class="nav-subitem"> Cost Center </a>
+
+                <a href="profit-center.html" class="nav-subitem">
+                  Profit Center
+                </a>
+
+                <a href="department.html" class="nav-subitem"> Department </a>
+
+                <a href="service-unit.html" class="nav-subitem active">
+                  Service Unit
+                </a>
+
+                <a href="payment-method.html" class="nav-subitem">
+                  Payment Method
+                </a>
+
+                <a href="bank-account.html" class="nav-subitem">
+                  Bank Account
+                </a>
+
+                <a href="tax-master.html" class="nav-subitem"> Tax Master </a>
+
+                <a href="accounting-mapping.html" class="nav-subitem">
+                  Accounting Mapping
+                </a>
+              </div>
+            </div>
+
+            <!-- CHART OF ACCOUNTS -->
+
+            <a
+              href="../chart-of-accounts/chart-of-accounts.html"
+              class="nav-item"
+            >
+              <span class="nav-icon">▤</span>
+              <span class="nav-text">Chart of Accounts</span>
+            </a>
+
+            <!-- GENERAL LEDGER -->
+
+            <div class="nav-dropdown">
+              <button
+                class="nav-item nav-dropdown-toggle"
+                type="button"
+                data-dropdown="generalLedger"
+              >
+                <span class="nav-icon">↔</span>
+                <span class="nav-text">General Ledger</span>
+                <span class="nav-arrow">›</span>
+              </button>
+
+              <div class="nav-submenu" id="generalLedger">
+                <a
+                  href="../general-ledger/journal-entry.html"
+                  class="nav-subitem"
+                >
+                  Journal Entry
+                </a>
+
+                <a
+                  href="../general-ledger/journal-list.html"
+                  class="nav-subitem"
+                >
+                  Journal List
+                </a>
+
+                <a
+                  href="../general-ledger/journal-posting.html"
+                  class="nav-subitem"
+                >
+                  Journal Posting
+                </a>
+
+                <a href="../general-ledger/ledger.html" class="nav-subitem">
+                  General Ledger
+                </a>
+              </div>
+            </div>
+
+            <!-- ACCOUNT RECEIVABLE -->
+
+            <div class="nav-dropdown">
+              <button
+                class="nav-item nav-dropdown-toggle"
+                type="button"
+                data-dropdown="accountReceivable"
+              >
+                <span class="nav-icon">◌</span>
+                <span class="nav-text">Account Receivable</span>
+                <span class="nav-arrow">›</span>
+              </button>
+
+              <div class="nav-submenu" id="accountReceivable">
+                <a
+                  href="../account-receivable/ar-dashboard.html"
+                  class="nav-subitem"
+                >
+                  AR Dashboard
+                </a>
+
+                <a
+                  href="../account-receivable/customer.html"
+                  class="nav-subitem"
+                >
+                  Customer
+                </a>
+
+                <a
+                  href="../account-receivable/invoice.html"
+                  class="nav-subitem"
+                >
+                  Invoice
+                </a>
+
+                <a
+                  href="../account-receivable/receipt.html"
+                  class="nav-subitem"
+                >
+                  Receipt
+                </a>
+
+                <a href="../account-receivable/aging.html" class="nav-subitem">
+                  AR Aging
+                </a>
+              </div>
+            </div>
+
+            <!-- ACCOUNT PAYABLE -->
+
+            <div class="nav-dropdown">
+              <button
+                class="nav-item nav-dropdown-toggle"
+                type="button"
+                data-dropdown="accountPayable"
+              >
+                <span class="nav-icon">◍</span>
+                <span class="nav-text">Account Payable</span>
+                <span class="nav-arrow">›</span>
+              </button>
+
+              <div class="nav-submenu" id="accountPayable">
+                <a
+                  href="../account-payable/ap-dashboard.html"
+                  class="nav-subitem"
+                >
+                  AP Dashboard
+                </a>
+
+                <a href="../account-payable/vendor.html" class="nav-subitem">
+                  Vendor
+                </a>
+
+                <a href="../account-payable/bill.html" class="nav-subitem">
+                  Bill
+                </a>
+
+                <a href="../account-payable/payment.html" class="nav-subitem">
+                  Payment
+                </a>
+
+                <a href="../account-payable/aging.html" class="nav-subitem">
+                  AP Aging
+                </a>
+              </div>
+            </div>
+
+            <!-- CASH & BANK -->
+
+            <div class="nav-dropdown">
+              <button
+                class="nav-item nav-dropdown-toggle"
+                type="button"
+                data-dropdown="cashBank"
+              >
+                <span class="nav-icon">▣</span>
+                <span class="nav-text">Cash &amp; Bank</span>
+                <span class="nav-arrow">›</span>
+              </button>
+
+              <div class="nav-submenu" id="cashBank">
+                <a
+                  href="../cash-bank/cash-bank-dashboard.html"
+                  class="nav-subitem"
+                >
+                  Cash &amp; Bank Dashboard
+                </a>
+
+                <a href="../cash-bank/cash-account.html" class="nav-subitem">
+                  Cash Account
+                </a>
+
+                <a href="../cash-bank/bank-account.html" class="nav-subitem">
+                  Bank Account
+                </a>
+
+                <a href="../cash-bank/cash-receipt.html" class="nav-subitem">
+                  Cash Receipt
+                </a>
+
+                <a
+                  href="../cash-bank/cash-disbursement.html"
+                  class="nav-subitem"
+                >
+                  Cash Disbursement
+                </a>
+
+                <a
+                  href="../cash-bank/bank-reconciliation.html"
+                  class="nav-subitem"
+                >
+                  Bank Reconciliation
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- OPERATIONS -->
+
+          <div class="nav-section">
+            <div class="nav-section-title">Operations</div>
+
+            <a href="../operations/revenue-management.html" class="nav-item">
+              <span class="nav-icon">↗</span>
+              <span class="nav-text">Revenue Management</span>
+            </a>
+
+            <a href="../operations/billing-integration.html" class="nav-item">
+              <span class="nav-icon">▧</span>
+              <span class="nav-text">Billing Integration</span>
+            </a>
+
+            <a href="../operations/bpjs-insurance.html" class="nav-item">
+              <span class="nav-icon">✓</span>
+              <span class="nav-text">BPJS &amp; Insurance</span>
+            </a>
+
+            <a href="../operations/pharmacy-accounting.html" class="nav-item">
+              <span class="nav-icon">✚</span>
+              <span class="nav-text">Pharmacy Accounting</span>
+            </a>
+
+            <a href="../operations/procurement.html" class="nav-item">
+              <span class="nav-icon">⌁</span>
+              <span class="nav-text">Procurement</span>
+            </a>
+
+            <a href="../operations/expense-management.html" class="nav-item">
+              <span class="nav-icon">−</span>
+              <span class="nav-text">Expense Management</span>
+            </a>
+          </div>
+
+          <!-- MANAGEMENT -->
+
+          <div class="nav-section">
+            <div class="nav-section-title">Management</div>
+
+            <a href="../management/fixed-asset.html" class="nav-item">
+              <span class="nav-icon">▥</span>
+              <span class="nav-text">Fixed Asset</span>
+            </a>
+
+            <a href="../management/budget-management.html" class="nav-item">
+              <span class="nav-icon">◫</span>
+              <span class="nav-text">Budget Management</span>
+            </a>
+
+            <a href="../management/payroll-accounting.html" class="nav-item">
+              <span class="nav-icon">▥</span>
+              <span class="nav-text">Payroll Accounting</span>
+            </a>
+
+            <a href="../management/tax-management.html" class="nav-item">
+              <span class="nav-icon">%</span>
+              <span class="nav-text">Tax Management</span>
+            </a>
+
+            <a href="../management/financial-closing.html" class="nav-item">
+              <span class="nav-icon">◈</span>
+              <span class="nav-text">Financial Closing</span>
+            </a>
+          </div>
+
+          <!-- REPORTS -->
+
+          <div class="nav-section">
+            <div class="nav-section-title">Reports &amp; Intelligence</div>
+
+            <a href="../reports/financial-statements.html" class="nav-item">
+              <span class="nav-icon">▥</span>
+              <span class="nav-text">Financial Statements</span>
+            </a>
+
+            <a href="../reports/hospital-profitability.html" class="nav-item">
+              <span class="nav-icon">◒</span>
+              <span class="nav-text">Hospital Profitability</span>
+            </a>
+
+            <a
+              href="../reports/ai-accounting-intelligence.html"
+              class="nav-item"
+            >
+              <span class="nav-icon">⌁</span>
+              <span class="nav-text">AI Accounting Intelligence</span>
+            </a>
+
+            <a href="../reports/internal-control-audit.html" class="nav-item">
+              <span class="nav-icon">◉</span>
+              <span class="nav-text">Internal Control &amp; Audit</span>
+            </a>
+          </div>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="system-status">
+            <div class="status-label">SYSTEM STATUS</div>
+
+            <div class="status-value">
+              <span class="status-dot"></span>
+              All systems operational
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- =========================================================
+         MAIN
+    ========================================================== -->
+
+      <section class="main">
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+          <div style="display: flex; align-items: center">
+            <button class="mobile-menu" id="mobileMenu">☰</button>
+
+            <div class="page-title">
+              <h1>Cost Center</h1>
+
+              <p>Financial Master Data &amp; Cost Allocation</p>
+            </div>
+          </div>
+
+          <div class="topbar-right">
+            <div class="last-updated">
+              Last updated:
+              <strong id="lastUpdated"> Just now </strong>
+            </div>
+
+            <button class="notification">
+              ♧
+              <span class="notification-badge"></span>
+            </button>
+
+            <div class="user-profile">
+              <div class="user-avatar">AD</div>
+
+              <div class="user-info">
+                <strong> Admin Finance </strong>
+
+                <span> Finance Administrator </span>
+              </div>
+
+              <button class="user-menu" id="logoutButton">▾</button>
+            </div>
+          </div>
+        </header>
+
+        <!-- =========================================================
+           CONTENT
+      ========================================================== -->
+
+        <main class="content">
+          <div class="service-header">
+            <div class="service-header-text">
+              <h2>Service Unit</h2>
+              <p>
+                Manage operational service units, organizational ownership,
+                financial mapping and revenue-generating activities.
+              </p>
+            </div>
+            <div class="service-actions">
+              <button type="button" class="service-btn" id="exportServiceUnit">
+                Export
+              </button>
+              <button
+                type="button"
+                class="service-btn primary"
+                id="newServiceUnit"
+              >
+                + New Service Unit
+              </button>
+            </div>
+          </div>
+
+          <div class="service-summary">
+            <div class="service-summary-card">
+              <div class="service-summary-label">Total Service Units</div>
+              <div class="service-summary-value" id="totalServiceUnits">56</div>
+              <div class="service-summary-meta">
+                Registered operational units
+              </div>
+            </div>
+            <div class="service-summary-card">
+              <div class="service-summary-label">Active</div>
+              <div class="service-summary-value" id="activeServiceUnits">
+                51
+              </div>
+              <div class="service-summary-meta success">● Currently active</div>
+            </div>
+            <div class="service-summary-card">
+              <div class="service-summary-label">Clinical Units</div>
+              <div class="service-summary-value">34</div>
+              <div class="service-summary-meta">
+                Patient care & diagnostic services
+              </div>
+            </div>
+            <div class="service-summary-card">
+              <div class="service-summary-label">Revenue Generating</div>
+              <div class="service-summary-value">28</div>
+              <div class="service-summary-meta">Linked to revenue streams</div>
+            </div>
+          </div>
+
+          <section class="service-card">
+            <div class="service-card-header">
+              <div>
+                <div class="service-card-kicker">Master Data</div>
+                <div class="service-card-title">Service Unit Directory</div>
+                <div class="service-card-description">
+                  Maintain operational service units, department ownership,
+                  accounting mappings and revenue status.
+                </div>
+              </div>
+            </div>
+            <div class="service-card-body">
+              <div class="service-filter">
+                <div class="service-filter-group">
+                  <label for="searchServiceUnit">Search</label
+                  ><input
+                    type="text"
+                    id="searchServiceUnit"
+                    class="service-input"
+                    placeholder="Search code or service unit name..."
+                  />
+                </div>
+                <div class="service-filter-group">
+                  <label for="serviceTypeFilter">Type</label
+                  ><select id="serviceTypeFilter" class="service-select">
+                    <option value="">All Types</option>
+                    <option>Clinical</option>
+                    <option>Diagnostic</option>
+                    <option>Support</option>
+                    <option>Administrative</option>
+                  </select>
+                </div>
+                <div class="service-filter-group">
+                  <label for="serviceStatusFilter">Status</label
+                  ><select id="serviceStatusFilter" class="service-select">
+                    <option value="">All Status</option>
+                    <option>Active</option>
+                    <option>Inactive</option>
+                  </select>
+                </div>
+                <button
+                  type="button"
+                  class="service-search-btn"
+                  id="searchServiceButton"
+                >
+                  Search
+                </button>
+              </div>
+
+              <div class="service-table-wrapper">
+                <table class="service-table" id="serviceUnitTable">
+                  <thead>
+                    <tr>
+                      <th>Code</th>
+                      <th>Service Unit</th>
+                      <th>Type</th>
+                      <th>Department</th>
+                      <th>Cost Center</th>
+                      <th>Profit Center</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr data-type="Clinical" data-status="Active">
+                      <td><span class="service-code">SU-001</span></td>
+                      <td><span class="service-name">Emergency Room</span></td>
+                      <td><span class="service-type">Clinical</span></td>
+                      <td>Emergency Department</td>
+                      <td>CC-001</td>
+                      <td>PC-003</td>
+                      <td>
+                        <span class="service-status active"
+                          ><span class="service-status-dot"></span>Active</span
+                        >
+                      </td>
+                      <td>
+                        <div class="service-actions-cell">
+                          <button
+                            type="button"
+                            class="service-table-action"
+                            title="Edit"
+                          >
+                            ✎</button
+                          ><button
+                            type="button"
+                            class="service-table-action"
+                            title="View"
+                          >
+                            ◉
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-type="Clinical" data-status="Active">
+                      <td><span class="service-code">SU-002</span></td>
+                      <td><span class="service-name">VIP Ward</span></td>
+                      <td><span class="service-type">Clinical</span></td>
+                      <td>Inpatient Services</td>
+                      <td>CC-021</td>
+                      <td>PC-001</td>
+                      <td>
+                        <span class="service-status active"
+                          ><span class="service-status-dot"></span>Active</span
+                        >
+                      </td>
+                      <td>
+                        <div class="service-actions-cell">
+                          <button
+                            type="button"
+                            class="service-table-action"
+                            title="Edit"
+                          >
+                            ✎</button
+                          ><button
+                            type="button"
+                            class="service-table-action"
+                            title="View"
+                          >
+                            ◉
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-type="Clinical" data-status="Active">
+                      <td><span class="service-code">SU-003</span></td>
+                      <td><span class="service-name">General Ward</span></td>
+                      <td><span class="service-type">Clinical</span></td>
+                      <td>Inpatient Services</td>
+                      <td>CC-022</td>
+                      <td>PC-001</td>
+                      <td>
+                        <span class="service-status active"
+                          ><span class="service-status-dot"></span>Active</span
+                        >
+                      </td>
+                      <td>
+                        <div class="service-actions-cell">
+                          <button
+                            type="button"
+                            class="service-table-action"
+                            title="Edit"
+                          >
+                            ✎</button
+                          ><button
+                            type="button"
+                            class="service-table-action"
+                            title="View"
+                          >
+                            ◉
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-type="Clinical" data-status="Active">
+                      <td><span class="service-code">SU-004</span></td>
+                      <td>
+                        <span class="service-name">Outpatient Clinic</span>
+                      </td>
+                      <td><span class="service-type">Clinical</span></td>
+                      <td>Outpatient Services</td>
+                      <td>CC-003</td>
+                      <td>PC-002</td>
+                      <td>
+                        <span class="service-status active"
+                          ><span class="service-status-dot"></span>Active</span
+                        >
+                      </td>
+                      <td>
+                        <div class="service-actions-cell">
+                          <button
+                            type="button"
+                            class="service-table-action"
+                            title="Edit"
+                          >
+                            ✎</button
+                          ><button
+                            type="button"
+                            class="service-table-action"
+                            title="View"
+                          >
+                            ◉
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-type="Clinical" data-status="Active">
+                      <td><span class="service-code">SU-005</span></td>
+                      <td>
+                        <span class="service-name">Pharmacy Outpatient</span>
+                      </td>
+                      <td><span class="service-type">Clinical</span></td>
+                      <td>Pharmacy</td>
+                      <td>CC-004</td>
+                      <td>PC-004</td>
+                      <td>
+                        <span class="service-status active"
+                          ><span class="service-status-dot"></span>Active</span
+                        >
+                      </td>
+                      <td>
+                        <div class="service-actions-cell">
+                          <button
+                            type="button"
+                            class="service-table-action"
+                            title="Edit"
+                          >
+                            ✎</button
+                          ><button
+                            type="button"
+                            class="service-table-action"
+                            title="View"
+                          >
+                            ◉
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-type="Diagnostic" data-status="Active">
+                      <td><span class="service-code">SU-006</span></td>
+                      <td>
+                        <span class="service-name">Clinical Laboratory</span>
+                      </td>
+                      <td><span class="service-type">Diagnostic</span></td>
+                      <td>Laboratory</td>
+                      <td>CC-005</td>
+                      <td>PC-005</td>
+                      <td>
+                        <span class="service-status active"
+                          ><span class="service-status-dot"></span>Active</span
+                        >
+                      </td>
+                      <td>
+                        <div class="service-actions-cell">
+                          <button
+                            type="button"
+                            class="service-table-action"
+                            title="Edit"
+                          >
+                            ✎</button
+                          ><button
+                            type="button"
+                            class="service-table-action"
+                            title="View"
+                          >
+                            ◉
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-type="Diagnostic" data-status="Active">
+                      <td><span class="service-code">SU-007</span></td>
+                      <td>
+                        <span class="service-name">Radiology Imaging</span>
+                      </td>
+                      <td><span class="service-type">Diagnostic</span></td>
+                      <td>Radiology</td>
+                      <td>CC-006</td>
+                      <td>PC-006</td>
+                      <td>
+                        <span class="service-status active"
+                          ><span class="service-status-dot"></span>Active</span
+                        >
+                      </td>
+                      <td>
+                        <div class="service-actions-cell">
+                          <button
+                            type="button"
+                            class="service-table-action"
+                            title="Edit"
+                          >
+                            ✎</button
+                          ><button
+                            type="button"
+                            class="service-table-action"
+                            title="View"
+                          >
+                            ◉
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr data-type="Support" data-status="Inactive">
+                      <td><span class="service-code">SU-008</span></td>
+                      <td>
+                        <span class="service-name">Old Physiotherapy Unit</span>
+                      </td>
+                      <td><span class="service-type">Support</span></td>
+                      <td>Rehabilitation</td>
+                      <td>CC-031</td>
+                      <td>-</td>
+                      <td>
+                        <span class="service-status inactive"
+                          ><span class="service-status-dot"></span
+                          >Inactive</span
+                        >
+                      </td>
+                      <td>
+                        <div class="service-actions-cell">
+                          <button
+                            type="button"
+                            class="service-table-action"
+                            title="Edit"
+                          >
+                            ✎</button
+                          ><button
+                            type="button"
+                            class="service-table-action"
+                            title="View"
+                          >
+                            ◉
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <section
+            class="service-card"
+            id="serviceUnitFormCard"
+            style="display: none"
+          >
+            <div class="service-card-header">
+              <div>
+                <div class="service-card-kicker">Master Data</div>
+                <div class="service-card-title">New Service Unit</div>
+                <div class="service-card-description">
+                  Define the operational, organizational and accounting
+                  attributes for the new service unit.
+                </div>
+              </div>
+            </div>
+            <div class="service-card-body">
+              <div class="service-form-grid">
+                <div class="service-form-group">
+                  <label for="formCode">Service Unit Code <span>*</span></label
+                  ><input
+                    type="text"
+                    id="formCode"
+                    class="service-input"
+                    value="SU-009"
+                  />
+                </div>
+                <div class="service-form-group">
+                  <label for="formName">Service Unit Name <span>*</span></label
+                  ><input
+                    type="text"
+                    id="formName"
+                    class="service-input"
+                    placeholder="Enter service unit name"
+                  />
+                </div>
+                <div class="service-form-group">
+                  <label for="formType">Service Unit Type</label
+                  ><select id="formType" class="service-select">
+                    <option>Clinical</option>
+                    <option>Diagnostic</option>
+                    <option>Support</option>
+                    <option>Administrative</option>
+                  </select>
+                </div>
+                <div class="service-form-group">
+                  <label for="formDepartment">Department</label
+                  ><select id="formDepartment" class="service-select">
+                    <option selected>Select Department</option>
+                    <option>Emergency Department</option>
+                    <option>Inpatient Services</option>
+                    <option>Outpatient Services</option>
+                    <option>Pharmacy</option>
+                    <option>Laboratory</option>
+                    <option>Radiology</option>
+                    <option>Rehabilitation</option>
+                  </select>
+                </div>
+                <div class="service-form-group">
+                  <label for="formCostCenter">Cost Center</label
+                  ><select id="formCostCenter" class="service-select">
+                    <option selected>Select Cost Center</option>
+                    <option>CC-001 · Emergency Department</option>
+                    <option>CC-002 · Inpatient Services</option>
+                    <option>CC-003 · Outpatient Services</option>
+                    <option>CC-004 · Pharmacy</option>
+                    <option>CC-005 · Laboratory</option>
+                    <option>CC-006 · Radiology</option>
+                  </select>
+                </div>
+                <div class="service-form-group">
+                  <label for="formProfitCenter">Profit Center</label
+                  ><select id="formProfitCenter" class="service-select">
+                    <option selected>Select Profit Center</option>
+                    <option>PC-001 · Inpatient Services</option>
+                    <option>PC-002 · Outpatient Services</option>
+                    <option>PC-003 · Emergency Services</option>
+                    <option>PC-004 · Pharmacy Services</option>
+                    <option>PC-005 · Laboratory Services</option>
+                    <option>PC-006 · Radiology Services</option>
+                  </select>
+                </div>
+                <div class="service-form-group">
+                  <label for="formManager">Unit Head / PIC</label
+                  ><input
+                    type="text"
+                    id="formManager"
+                    class="service-input"
+                    placeholder="Responsible person"
+                  />
+                </div>
+                <div class="service-form-group">
+                  <label for="formRevenue">Revenue Generating</label>
+                  <div class="service-status-box">
+                    <div class="service-status-label" id="formRevenueLabel">
+                      <span class="service-status-dot"></span>Yes
+                    </div>
+                    <button
+                      type="button"
+                      class="service-toggle"
+                      id="formRevenueToggle"
+                    ></button>
+                  </div>
+                </div>
+                <div class="service-form-group">
+                  <label>Status</label>
+                  <div class="service-status-box">
+                    <div class="service-status-label" id="formStatusLabel">
+                      <span class="service-status-dot"></span>Active
+                    </div>
+                    <button
+                      type="button"
+                      class="service-toggle"
+                      id="formStatusToggle"
+                    ></button>
+                  </div>
+                </div>
+                <div class="service-form-group full">
+                  <label for="formDescription">Description</label
+                  ><textarea
+                    id="formDescription"
+                    class="service-textarea"
+                    placeholder="Describe the scope, services and operational responsibility of this service unit..."
+                  ></textarea>
+                </div>
+              </div>
+              <div
+                class="service-actions"
+                style="margin-top: 18px; justify-content: flex-end"
+              >
+                <button type="button" class="service-btn" id="cancelForm">
+                  Cancel</button
+                ><button
+                  type="button"
+                  class="service-btn primary"
+                  id="saveServiceUnit"
+                >
+                  Save Service Unit
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <div class="service-detail-grid">
+            <section class="service-detail-card">
+              <div class="service-detail-header">
+                <div class="service-detail-title">Service Unit Hierarchy</div>
+                <div class="service-detail-subtitle">
+                  Operational structure from department to service unit
+                </div>
+              </div>
+              <div class="service-detail-body">
+                <div class="service-hierarchy-list">
+                  <div class="service-hierarchy-row level-1">
+                    <span class="service-hierarchy-line"></span
+                    ><span class="service-hierarchy-code">DEP-002</span>
+                    Inpatient Services
+                  </div>
+                  <div class="service-hierarchy-row level-2">
+                    <span class="service-hierarchy-line"></span
+                    ><span class="service-hierarchy-code">SU-002</span> VIP Ward
+                  </div>
+                  <div class="service-hierarchy-row level-3">
+                    <span class="service-hierarchy-line"></span
+                    ><span class="service-hierarchy-code">SU-021</span>
+                    Executive Suite
+                  </div>
+                  <div class="service-hierarchy-row level-3">
+                    <span class="service-hierarchy-line"></span
+                    ><span class="service-hierarchy-code">SU-022</span> VIP Ward
+                    A
+                  </div>
+                  <div class="service-hierarchy-row level-2">
+                    <span class="service-hierarchy-line"></span
+                    ><span class="service-hierarchy-code">SU-003</span> General
+                    Ward
+                  </div>
+                  <div class="service-hierarchy-row level-3">
+                    <span class="service-hierarchy-line"></span
+                    ><span class="service-hierarchy-code">SU-031</span> General
+                    Ward A
+                  </div>
+                  <div class="service-hierarchy-row level-3">
+                    <span class="service-hierarchy-line"></span
+                    ><span class="service-hierarchy-code">SU-032</span> General
+                    Ward B
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="service-detail-card">
+              <div class="service-detail-header">
+                <div class="service-detail-title">
+                  Service Unit Configuration
+                </div>
+                <div class="service-detail-subtitle">
+                  Current master data configuration
+                </div>
+              </div>
+              <div class="service-detail-body">
+                <table class="service-info-table">
+                  <tbody>
+                    <tr>
+                      <td>Revenue Mapping</td>
+                      <td>Enabled</td>
+                    </tr>
+                    <tr>
+                      <td>Cost Allocation</td>
+                      <td>Enabled</td>
+                    </tr>
+                    <tr>
+                      <td>Profit Center Mapping</td>
+                      <td>Automatic</td>
+                    </tr>
+                    <tr>
+                      <td>Billing Integration</td>
+                      <td>Enabled</td>
+                    </tr>
+                    <tr>
+                      <td>Active Units</td>
+                      <td>51 / 56</td>
+                    </tr>
+                    <tr>
+                      <td>Last Updated</td>
+                      <td>15 Sep 2026</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+
+          <div class="service-footer">
+            <div class="service-save-info">
+              <span class="status-dot"></span
+              ><span id="serviceFooterMessage"
+                >Service unit master data is synchronized.</span
+              >
+            </div>
+            <div class="service-actions">
+              <button type="button" class="service-btn" id="refreshServiceUnit">
+                Refresh</button
+              ><button
+                type="button"
+                class="service-btn primary"
+                id="newServiceUnitBottom"
+              >
+                + New Service Unit
+              </button>
+            </div>
+          </div>
+        </main>
+      </section>
+    </div>
+
+    <!-- =========================================================
+       GLOBAL JS
+  ========================================================== -->
+
+    <script src="../app.js"></script>
+
+    <!-- =========================================================
+       PAGE-SPECIFIC JS
+    ========================================================== -->
+    <script>
+      const formCard = document.getElementById("serviceUnitFormCard");
+      const footerMessage = document.getElementById("serviceFooterMessage");
+
+      function openServiceUnitForm() {
+        if (!formCard) return;
+        formCard.style.display = "block";
+        formCard.scrollIntoView({ behavior: "smooth", block: "start" });
+        setTimeout(() => document.getElementById("formName")?.focus(), 350);
+      }
+
+      document
+        .getElementById("newServiceUnit")
+        ?.addEventListener("click", openServiceUnitForm);
+      document
+        .getElementById("newServiceUnitBottom")
+        ?.addEventListener("click", openServiceUnitForm);
+      document.getElementById("cancelForm")?.addEventListener("click", () => {
+        formCard.style.display = "none";
+      });
+
+      document
+        .getElementById("saveServiceUnit")
+        ?.addEventListener("click", () => {
+          const code = document.getElementById("formCode")?.value.trim();
+          const name = document.getElementById("formName")?.value.trim();
+          if (!code || !name) {
+            alert("Please complete Service Unit Code and Service Unit Name.");
+            return;
+          }
+          alert(
+            "Service Unit\n\nService unit saved successfully.\n\nCode: " +
+              code +
+              "\nName: " +
+              name,
+          );
+          footerMessage.textContent =
+            "Service unit master data saved successfully.";
+          formCard.style.display = "none";
+        });
+
+      function setupToggle(toggleId, labelId, onText, offText) {
+        const toggle = document.getElementById(toggleId);
+        const label = document.getElementById(labelId);
+        if (!toggle || !label) return;
+        toggle.addEventListener("click", () => {
+          toggle.classList.toggle("off");
+          const isOff = toggle.classList.contains("off");
+          label.innerHTML =
+            '<span class="service-status-dot"></span>' +
+            (isOff ? offText : onText);
+          label.style.color = isOff ? "var(--text-muted)" : "var(--success)";
+        });
+      }
+      setupToggle("formStatusToggle", "formStatusLabel", "Active", "Inactive");
+      setupToggle("formRevenueToggle", "formRevenueLabel", "Yes", "No");
+
+      function filterServiceUnits() {
+        const search = (
+          document.getElementById("searchServiceUnit")?.value || ""
+        )
+          .toLowerCase()
+          .trim();
+        const type = document.getElementById("serviceTypeFilter")?.value || "";
+        const status =
+          document.getElementById("serviceStatusFilter")?.value || "";
+        document
+          .querySelectorAll("#serviceUnitTable tbody tr")
+          .forEach((row) => {
+            const text = row.textContent.toLowerCase();
+            const matchSearch = !search || text.includes(search);
+            const matchType = !type || row.dataset.type === type;
+            const matchStatus = !status || row.dataset.status === status;
+            row.style.display =
+              matchSearch && matchType && matchStatus ? "" : "none";
+          });
+      }
+      document
+        .getElementById("searchServiceButton")
+        ?.addEventListener("click", filterServiceUnits);
+      document
+        .getElementById("searchServiceUnit")
+        ?.addEventListener("input", filterServiceUnits);
+      document
+        .getElementById("serviceTypeFilter")
+        ?.addEventListener("change", filterServiceUnits);
+      document
+        .getElementById("serviceStatusFilter")
+        ?.addEventListener("change", filterServiceUnits);
+
+      document
+        .querySelectorAll("#serviceUnitTable .service-table-action")
+        .forEach((button) => {
+          button.addEventListener("click", () => {
+            const row = button.closest("tr");
+            const code =
+              row?.querySelector(".service-code")?.textContent.trim() || "-";
+            const name =
+              row?.querySelector(".service-name")?.textContent.trim() || "-";
+            alert(
+              button.title +
+                " Service Unit\n\nCode: " +
+                code +
+                "\nService Unit: " +
+                name,
+            );
+          });
+        });
+
+      document
+        .getElementById("exportServiceUnit")
+        ?.addEventListener("click", () =>
+          alert(
+            "Service Unit export is ready for integration with the reporting/export service.",
+          ),
+        );
+      document
+        .getElementById("refreshServiceUnit")
+        ?.addEventListener("click", () => {
+          footerMessage.textContent =
+            "Service unit master data refreshed just now.";
+          setTimeout(
+            () =>
+              (footerMessage.textContent =
+                "Service unit master data is synchronized."),
+            1800,
+          );
+        });
+    </script>
+  </body>
+</html>
